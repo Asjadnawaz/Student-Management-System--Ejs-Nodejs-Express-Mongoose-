@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Student</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Container starts OFF-SCREEN */
+    .form-container {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      transform: translateX(-120%);
+      animation: slideIn 1.2s ease forwards;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 30px;
+      letter-spacing: 1px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    input {
+      grid-column: span 1;
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    input::placeholder {
+      color: #777;
+      font-weight: 500;
+    }
+
+    input:focus {
+      box-shadow: 0 0 0 2px #00c6ff;
+    }
+
+    /* Full width fields */
+    .full {
+      grid-column: span 2;
+    }
+
+    button {
+      grid-column: span 2;
+      margin-top: 20px;
+      padding: 16px;
+      border: none;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      cursor: pointer;
+      transition: 0.35s ease;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+    }
+
+    /* Animation */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-120%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="form-container">
+    <h1>Add Student</h1>
+
+    <form method="POST" action="/add">
+      <input class="full" name="name" placeholder="Student Name" required />
+      <input class="full" name="rollno" placeholder="Roll Number" required />
+
+      <input name="subject1" type="number" placeholder="Subject 1 Marks" required />
+      <input name="subject2" type="number" placeholder="Subject 2 Marks" required />
+      <input name="subject3" type="number" placeholder="Subject 3 Marks" required />
+      <input name="subject4" type="number" placeholder="Subject 4 Marks" required />
+      <input class="full" name="subject5" type="number" placeholder="Subject 5 Marks" required />
+
+      <button type="submit">➕ Add Student</button>
+    </form>
+  </div>
+
+</body>
+</html>

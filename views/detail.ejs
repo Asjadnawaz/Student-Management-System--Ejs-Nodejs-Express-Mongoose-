@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Result</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    /* Background Grade Watermark */
+.grade-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1; /* visible but behind card */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 160px;
+  font-weight: 900;
+  letter-spacing: 40px;
+  color: rgba(255, 255, 255, 0.05);
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: moveBg 25s linear infinite;
+}
+
+
+/* Motion animation */
+@keyframes moveBg {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+    /* Result Card */
+    .card {
+      width: 100%;
+      max-width: 650px;
+      padding: 35px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.12);
+      z-index: 5;
+      backdrop-filter: blur(12px);
+      position: relative;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Animated Border */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 22px;
+      background: linear-gradient(
+        270deg,
+        #00c6ff,
+        #0072ff,
+      );
+      background-size: 400% 400%;
+      z-index: -1;
+      animation: borderGlow 6s linear infinite;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 25px;
+    }
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    /* Marks Boxes */
+    .marks {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .mark-box {
+      background: rgba(255,255,255,0.18);
+      padding: 15px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      opacity: 0.4;
+      transform: scale(0.95);
+      transition: 0.5s;
+    }
+
+    .mark-box.active {
+      opacity: 1;
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.35);
+    }
+
+    /* Result Section */
+    .result {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+      text-align: center;
+    }
+
+    .box {
+      flex: 1;
+      padding: 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      animation: pop 0.8s ease;
+    }
+
+    .total { background: #444; }
+    .percentage { background: #555; }
+
+    /* Grade Colors */
+    .grade.A { background: #2ecc71; }
+    .grade.B { background: #3498db; }
+    .grade.C { background: #f39c12; }
+    .grade.Fail { background: #e74c3c; }
+
+body.A .grade-bg { color: rgba(46, 204, 113, 0.05); }
+body.B .grade-bg { color: rgba(52, 152, 219, 0.05); }
+body.C .grade-bg { color: rgba(243, 156, 18, 0.05); }
+body.Fail .grade-bg { color: rgba(231, 76, 60, 0.05); }
+
+    .back {
+      display: block;
+      margin: 30px auto 0;
+      width: fit-content;
+      padding: 12px 26px;
+      border-radius: 40px;
+      background: linear-gradient(135deg, #ff512f, #dd2476);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    /* Animations */
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+
+<body class="<%= student.grade %>">
+
+  <div class="grade-bg">
+  <%= student.grade === 'Fail' ? 'FAIL' : student.grade %>
+  </div>
+
+
+  <div class="card">
+    <h1>Student Result</h1>
+
+    <div class="info">
+      <div>Name: <strong><%= student.name %></strong></div>
+      <div>Roll No: <strong><%= student.rollno %></strong></div>
+    </div>
+
+    <div class="marks">
+      <div class="mark-box">Subject 1 <span><%= student.subject1 %></span></div>
+      <div class="mark-box">Subject 2 <span><%= student.subject2 %></span></div>
+      <div class="mark-box">Subject 3 <span><%= student.subject3 %></span></div>
+      <div class="mark-box">Subject 4 <span><%= student.subject4 %></span></div>
+      <div class="mark-box">Subject 5 <span><%= student.subject5 %></span></div>
+    </div>
+
+    <div class="result">
+      <div class="box total">Total<br><%= student.total %></div>
+      <div class="box percentage">Percentage<br><%= student.percentage %>%</div>
+      <div class="box grade <%= student.grade %>">
+        Grade<br><%= student.grade %>
+      </div>
+    </div>
+
+    <a href="/students" class="back">⬅ Back to List</a>
+  </div>
+
+  <!-- Sequential Animation Script -->
+  <script>
+    const boxes = document.querySelectorAll(".mark-box");
+    let index = 0;
+
+    setInterval(() => {
+      boxes.forEach(box => box.classList.remove("active"));
+      boxes[index].classList.add("active");
+      index = (index + 1) % boxes.length;
+    }, 1000);
+  </script>
+
+</body>
+</html>

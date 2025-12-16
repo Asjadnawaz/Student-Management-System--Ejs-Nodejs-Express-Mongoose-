@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Management System</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 50px 40px;
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      animation: fadeIn 1.2s ease;
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      animation: slideDown 1s ease;
+    }
+
+    p {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 40px;
+      animation: slideUp 1s ease;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    a {
+      padding: 16px 36px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: all 0.35s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    a::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.2);
+      transition: 0.4s;
+    }
+
+    a:hover::before {
+      left: 0;
+    }
+
+    a:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Student Management System</h1>
+    <p>Manage student records, marks, results & performance efficiently</p>
+
+    <div class="button-group">
+      <a href="/add">➕ Add Student</a>
+      <a href="/students">📋 View Students</a>
+    </div>
+  </div>
+
+</body>
+</html>

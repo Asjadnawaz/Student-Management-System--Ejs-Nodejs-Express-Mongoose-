@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Students List</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    /* Main Card */
+    .card {
+      width: 90%;
+      max-width: 900px;
+      padding: 35px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      position: relative;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Animated Border */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 22px;
+      background: linear-gradient(
+        270deg,
+        #00c6ff,
+        #0072ff,
+      );
+      background-size: 400% 400%;
+      z-index: -1;
+      animation: borderGlow 6s linear infinite;
+    }
+
+h1 {
+  font-size: 34px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  width: fit-content;
+}
+
+/* Cursor effect */
+.typing {
+  border-right: 3px solid white;
+}
+
+/* Remove cursor */
+.no-cursor {
+  border-right: none;
+}
+
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .add-btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+
+    .add-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: center;
+    }
+
+    th {
+      background: rgba(0,0,0,0.35);
+      font-weight: 700;
+    }
+
+    tbody tr {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: showRow 0.6s ease forwards;
+      background: rgba(255,255,255,0.1);
+    }
+
+    tbody tr:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    a.action {
+      color: #00c6ff;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    a.action.delete {
+      color: #ff6b6b;
+    }
+
+    .empty {
+      margin-top: 25px;
+      font-size: 18px;
+      opacity: 0.85;
+      text-align: center;
+    }
+
+    /* Animations */
+    @keyframes borderGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes showRow {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <div class="top-bar">
+      <h1 id="title" class="typing"></h1>
+      <a href="/add" class="add-btn">➕ Add Student</a>
+    </div>
+
+    <% if (students && students.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Roll No</th>
+            <th>Percentage</th>
+            <th>Grade</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% students.forEach((student, index) => { %>
+            <tr style="animation-delay: <%= index * 0.2 %>s">
+              <td><%= student.name %></td>
+              <td><%= student.rollno %></td>
+              <td><%= student.percentage %>%</td>
+              <td><%= student.grade %></td>
+              <td>
+                <a class="action" href="/student/<%= student._id %>">View</a> |
+                <a class="action" href="/edit/<%= student._id %>">Edit</a> |
+                <a class="action delete" href="/delete/<%= student._id %>" onclick="return confirm('Delete student?')">Delete</a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="empty">
+        No students found. <a class="action" href="/add">Add your first student</a>
+      </div>
+    <% } %>
+
+  </div>
+
+  <!-- Typing Effect -->
+ <script>
+  const text = "All Students";
+  let i = 0;
+  const title = document.getElementById("title");
+
+  function typeEffect() {
+    if (i < text.length) {
+      title.textContent += text.charAt(i);
+      i++;
+      setTimeout(typeEffect, 90);
+    } else {
+      // Remove cursor after typing completes
+      title.classList.remove("typing");
+      title.classList.add("no-cursor");
+    }
+  }
+
+  typeEffect();
+</script>
+
+  </script>
+
+</body>
+</html>
