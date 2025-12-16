@@ -22,6 +22,3 @@ A **full-featured Student Management System** built with **Node.js**, **Express.
 - **Database:** MongoDB  
 - **ORM:** Mongoose  
 
-
-   git clone https://github.com/your-username/student-management-system.git
-   cd student-management-system
